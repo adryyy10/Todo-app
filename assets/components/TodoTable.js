@@ -6,6 +6,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 import React, { Fragment, useContext, useState } from 'react';
 import { TodoContext } from '../contexts/TodoContext';
+import DeleteDialog from './DeleteDialog';
 
 function TodoTable()
 {
@@ -13,6 +14,8 @@ function TodoTable()
     const [addTodo, setAddTodo] = useState('');
     const [editIsShown, setEditIsShown] = useState(false);
     const [editTodo, setEditTodo] = useState('');
+    const [DeleteConfirmationIsShown, setDeleteConfirmationIsShown] = useState(false);
+    const [todoToBeDeleted, setTodoToBeDeleted] = useState(null);
 
     return(
         <React.Fragment>
@@ -69,7 +72,10 @@ function TodoTable()
                                         <EditIcon/>
                                     </IconButton>
 
-                                    <IconButton>
+                                    <IconButton onClick={() => {
+                                        setDeleteConfirmationIsShown(true); 
+                                        setTodoToBeDeleted(todo)
+                                    }}>
                                         <DeleteIcon/>
                                     </IconButton>
                                 </TableCell>
@@ -78,8 +84,16 @@ function TodoTable()
                     </TableBody>
                 </Table>
             </form>
+            {DeleteConfirmationIsShown && (
+                <DeleteDialog 
+                    todo={todoToBeDeleted} 
+                    open={DeleteConfirmationIsShown} 
+                    setDeleteConfirmationIsShown={setDeleteConfirmationIsShown}
+                />
+            )}
 
-            
+
+
         </React.Fragment>
     )
 }
