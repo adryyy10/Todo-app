@@ -1,3 +1,4 @@
+import { CssBaseline } from '@material-ui/core';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TodoTable from './components/TodoTable';
@@ -9,7 +10,9 @@ class App extends React.Component
     {
         return(
             <TodoContextProvider>
-                <TodoTable/>
+                <CssBaseline>
+                    <TodoTable/>
+                </CssBaseline>
             </TodoContextProvider>
         )
     }
