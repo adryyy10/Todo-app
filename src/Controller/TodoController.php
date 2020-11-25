@@ -85,11 +85,11 @@ class TodoController extends AbstractController
         try {
             $this->entityManager->remove($todo);
             $this->entityManager->flush();
-            return $this->json([
-                'todo' => $todo->toArray(),
-            ]);
         } catch (\Throwable $th) {
             
         }
+        return $this->json([
+            'message' => 'Todo has been deleted',
+        ]);
     }
 }

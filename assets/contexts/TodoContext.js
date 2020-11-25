@@ -61,16 +61,19 @@ class TodoContextProvider extends React.Component
     //delete
     deleteTodo(data)
     {
-        let todos = [...this.state.todos];
-        let todo = todos.find(todo =>{
-            return todo.id === data.id;
-        });
-
-        todos.splice(todos.indexOf(todo), 1);
-
-        this.setState({
-            todos: todos,
-        });
+        axios.delete('/api/todo/delete/' + data.id)
+            .then(response =>{
+                let todos = [...this.state.todos];
+                let todo = todos.find(todo =>{
+                    return todo.id === data.id;
+                });
+                todos.splice(todos.indexOf(todo), 1);
+                this.setState({
+                    todos: todos,
+                });
+            }).catch(error => {
+                console.error(error);
+            })
     }
     render()
     {
